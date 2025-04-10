@@ -168,10 +168,7 @@ access_token: kJGO53QxaEuhHaOU3h5Dc5
    "message":{
       "content":"hello",
       "echo_id":"724"
-   },
-   "conversationId":30,
-   "accountId":1,
-   "contactId":39
+   }
 }
 ```
 
@@ -187,9 +184,6 @@ access_token: kJGO53QxaEuhHaOU3h5Dc5
 
 attachments[]: (binary)
 message[echo_id]: 209
-conversationId: 30
-contactId: 39
-accountId: 1
 ```
 
 ✅ **Успішна відповідь(тіла відповіді немає) (200 OK)**
