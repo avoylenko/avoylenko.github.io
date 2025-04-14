@@ -68,6 +68,10 @@ Content-Type: application/json
         "contactInbox": {
             "pubsubToken": "kJGO53QxaEuhHaOU3h5Dc5"
         },
+         "conversation": {
+          "id": 1,
+          "status": "open"
+        },
         ...(other data)
     }
 }
@@ -110,7 +114,8 @@ Content-Type: application/json
     },
     "account_id": 1,
     "conversation": {
-      "id": 27
+      "id": 27,
+      "status": "resolved"
     }
   }
 }
@@ -174,6 +179,23 @@ access_token: kJGO53QxaEuhHaOU3h5Dc5
 
 ✅ **Успішна відповідь(тіла відповіді немає) (200 OK)**
 
+**Запит з файлом та текстом:**
+
+```http
+POST /api/v1/sdk/conversations/messages HTTP/1.1
+Host: devlight.cloud.novatalks.com.ua
+Content-Type: multipart/form-data
+access_token: kJGO53QxaEuhHaOU3h5Dc5
+
+attachments[]: (binary)
+message[content]:"hello",
+message[echo_id]: 209
+```
+
+✅ **Успішна відповідь(тіла відповіді немає) (200 OK)**
+
+---
+
 **Запит з файлом:**
 
 ```http
@@ -201,14 +223,15 @@ Host: devlight.cloud.novatalks.com.ua
 Upgrade: websocket
 ```
 
-Сервер відправляє такі івенти для **wіdget** клієнта:
+Сервер відправляє такі івенти для **sdk** клієнта:
 | Івент | Опис |
 |------------|--------------------------------|
 | `subscribe` | Підписка клієнта |
 | `presence.update` | keepalive повідомлення |
-| `conversation.created` | Івент про створення чату |
+| `conversation.status_changed` | Івент про зміну статусу розмови чату |
 | `message.created` | Івент про створення повідомлення |
 | `message.updated` | Івент про оновлення повідомлення |
+| `typing` | Івент про те, щоб користувач бачив, що агент набирає повідомлення |
 
 ### WebSocket Subscribe
 
@@ -252,13 +275,13 @@ Upgrade: websocket
 }
 ```
 
-### WebSocket conversation.created event
+### WebSocket conversation.status_changed event
 
 Нашим віджетом ми цей івент ігноруємо, але може бути корисний для вас:
 
 ```json
 {
-  "event": "conversation.created",
+  "event": "conversation.status_changed",
   "data": {
     "account_id": 1,
     "id": 28,
@@ -301,7 +324,8 @@ Upgrade: websocket
         "phone_number": null,
         "thumbnail": "",
         "type": "contact",
-        "labels": []
+        "labels": [],
+        "avatar_url": null
       },
       "assignee": null,
       "team": null,
@@ -351,7 +375,8 @@ Upgrade: websocket
     "sender": {
       "id": 1,
       "name": "Support",
-      "displayName": ""
+      "displayName": "",
+      "avatar_url": null
     },
     "created_at": 1742149000
   }
@@ -383,7 +408,8 @@ Upgrade: websocket
     "attachments": [],
     "sender": {
       "id": 36,
-      "name": "sdk-contact-494"
+      "name": "sdk-contact-494",
+      "avatar_url": null
     },
     "created_at": 1742149759
   }
@@ -428,7 +454,8 @@ Upgrade: websocket
     "sender": {
       "id": 1,
       "name": "Support",
-      "displayName": ""
+      "displayName": "",
+      "avatar_url": null
     },
     "created_at": 1742149989
   }
@@ -463,9 +490,25 @@ Upgrade: websocket
     "sender": {
       "id": 1,
       "name": "Support",
-      "displayName": ""
+      "displayName": "",
+      "avatar_url": null
     },
     "created_at": 1742149000
+  }
+}
+```
+
+### WebSocket typing event
+
+Сервіс відпрявляє івент агент набирає повідомлення:
+
+```json
+{
+  "event": "typing",
+  "data": {
+    "conversation_id": 1,
+    "user_id": 1,
+    "user_name": "Support"
   }
 }
 ```
