@@ -141,7 +141,7 @@ access_token: kJGO53QxaEuhHaOU3h5Dc5
 
 ### Get selected messages for conversation
 
-Для отримання повідомлень по чату та **before** чи **after** query параметри з **id** повідомлення в чаті. Сервіс поверне 20 повідомлень, які підходять під критерії пошуку.
+Для отримання повідомлень по чату та **before** чи **after** query параметри з **id** повідомлення в чаті. Сервіс поверне 20 повідомлень, які підходять під критерії пошуку. Також є можливісь передати query параметр **updated_at** з timestamp в мілісекудах для пошуку повідомлень які більше за це значеня.
 **Запит:**
 
 ```http
@@ -206,6 +206,24 @@ access_token: kJGO53QxaEuhHaOU3h5Dc5
 
 attachments[]: (binary)
 message[echo_id]: 209
+```
+
+✅ **Успішна відповідь(тіла відповіді немає) (200 OK)**
+
+**Запит з реплай повідомленням:**
+
+```http
+POST /api/v1/sdk/conversations/messages HTTP/1.1
+Host: devlight.cloud.novatalks.com.ua
+Content-Type: application/json
+access_token: kJGO53QxaEuhHaOU3h5Dc5
+
+{
+   "message":{
+      "content":"[RepliedMessageDialogId:]76af69fb-2366-40ed-b335-454d4725bc20[RepliedMessageId:]20163[RepliedContent:]Доброго дня[Content:]Вітаю",
+      "echo_id":"724"
+   }
+}
 ```
 
 ✅ **Успішна відповідь(тіла відповіді немає) (200 OK)**
@@ -337,8 +355,8 @@ Upgrade: websocket
     "snoozed_until": null,
     "agent_last_seen_at": 0,
     "contact_last_seen_at": 0,
-    "timestamp": 1742150872,
-    "created_at": 1742150872,
+    "timestamp": 1745404967805,
+    "created_at": 1745404967805,
     "session": null,
     "source_id": null
   }
@@ -378,7 +396,7 @@ Upgrade: websocket
       "displayName": "",
       "avatar_url": null
     },
-    "created_at": 1742149000
+    "created_at": 1745404967805
   }
 }
 ```
@@ -411,7 +429,7 @@ Upgrade: websocket
       "name": "sdk-contact-494",
       "avatar_url": null
     },
-    "created_at": 1742149759
+    "created_at": 1745404967805
   }
 }
 ```
@@ -457,7 +475,7 @@ Upgrade: websocket
       "displayName": "",
       "avatar_url": null
     },
-    "created_at": 1742149989
+    "created_at": 1745404967805
   }
 }
 ```
@@ -493,7 +511,7 @@ Upgrade: websocket
       "displayName": "",
       "avatar_url": null
     },
-    "created_at": 1742149000
+    "created_at": 1745404967805
   }
 }
 ```
