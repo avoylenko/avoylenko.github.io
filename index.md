@@ -230,6 +230,22 @@ access_token: kJGO53QxaEuhHaOU3h5Dc5
 
 ---
 
+### Update message status
+
+```http
+PATCH /api/v1/sdk/conversations/messages/status HTTP/1.1
+Host: devlight.cloud.novatalks.com.ua
+Content-Type: application/json
+access_token: kJGO53QxaEuhHaOU3h5Dc5
+
+{
+  "status":"seen", // sent | delivered | seen | failed
+  "messageIds": [1,2]
+}
+```
+
+✅ **Успішна відповідь(тіла відповіді немає) (200 OK)**
+
 ## 8. SDK WebSocket
 
 Після отримання **pubsubToken** токен ви можете встановити **websocket** зʼєднання для отримання ріалтайм данних:
@@ -499,7 +515,7 @@ Upgrade: websocket
     "external_source_ids": {},
     "inbox_id": 5,
     "sender_id": 1,
-    "status": "delivered",
+    "status": "delivered", // sent | delivered | seen | failed
     "pinned": false,
     "conversation_id": 27,
     "echo_id": "fad29d60472f",
@@ -518,15 +534,46 @@ Upgrade: websocket
 
 ### WebSocket typing event
 
-Сервіс відпрявляє івент агент набирає повідомлення:
+Сервіс відпрявляє івент агент(User) набирає повідомлення:
 
 ```json
 {
   "event": "typing",
   "data": {
     "conversation_id": 1,
-    "user_id": 1,
-    "user_name": "Support"
+    "sender": {
+      "id": 1,
+      "name": "Support"
+    },
+    "sender_type": "User" // Contact || User
+  }
+}
+```
+
+Сервіс відпрявляє івент клієнт(Contact) набирає повідомлення:
+
+```json
+{
+  "event": "typing",
+  "data": {
+    "conversation_id": 1,
+    "sender": {
+      "id": 1,
+      "name": "ContactName"
+    },
+    "sender_type": "Contact" // Contact || User
+  }
+}
+```
+
+### Send WebSocket typing event from Contact:
+
+```json
+{
+  "event": "typing",
+  "data": {
+    "conversation_id": 1,
+    "account_id": 1
   }
 }
 ```
