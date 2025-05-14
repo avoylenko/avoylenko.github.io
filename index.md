@@ -15,6 +15,7 @@
 - [SDK Authorization](#6-sdk-authorization)
 - [SDK API](#7-sdk-api)
 - [SDK WebSocket](#8-sdk-websocket)
+- [SDK Interactive Messages](#9-SDK-Interactive-Messages)
 
 ---
 
@@ -491,7 +492,32 @@ Upgrade: websocket
       "displayName": "",
       "avatar_url": null
     },
-    "created_at": 1745404967805
+    "created_at": 1745404967805,
+    "reply": {
+      "id": 3726,
+      "sender": {
+        "id": 244,
+        "name": "sdk-1",
+        "displayName": null,
+        "avatar_url": null
+      },
+      "message_type": "incoming",
+      "content_type": "text",
+      "attachments": [
+        {
+          "id": 41,
+          "message_id": 8333,
+          "account_id": 1,
+          "file_type": "image",
+          "fallback_title": null,
+          "extension": null,
+          "data_url": "https://store-url/store/30cbe6ea7db5752885bc5/telegram.png",
+          "thumb_url": "https://store-url/store/30cbe6ea7db5752885bc5/telegram.png",
+          "file_size": 9473
+        }
+      ],
+      "created_at": 1747090960816
+    } // or null
   }
 }
 ```
@@ -527,7 +553,32 @@ Upgrade: websocket
       "displayName": "",
       "avatar_url": null
     },
-    "created_at": 1745404967805
+    "created_at": 1745404967805,
+    "reply": {
+      "id": 3726,
+      "sender": {
+        "id": 244,
+        "name": "sdk-1",
+        "displayName": null,
+        "avatar_url": null
+      },
+      "message_type": "incoming",
+      "content_type": "text",
+      "attachments": [
+        {
+          "id": 41,
+          "message_id": 8333,
+          "account_id": 1,
+          "file_type": "image",
+          "fallback_title": null,
+          "extension": null,
+          "data_url": "https://store-url/store/30cbe6ea7db5752885bc5/telegram.png",
+          "thumb_url": "https://store-url/store/30cbe6ea7db5752885bc5/telegram.png",
+          "file_size": 9473
+        }
+      ],
+      "created_at": 1747090960816
+    } // or null
   }
 }
 ```
@@ -579,3 +630,85 @@ Upgrade: websocket
 ```
 
 ---
+
+## 9. SDK Interactive Messages
+
+### Card
+
+```json
+{
+  "content_type": "card",
+  "custom_attributes": {
+    "title": "Explore the Mountains", // optional
+    "subtitle": "A weekend getaway in the Alps", // optional
+    "image_url": "https://example.com/images/alps.jpg", // optional
+    "buttons": [
+      {
+        "type": "link",
+        "title": "View Details",
+        "url": "https://example.com/trips/alps"
+      },
+      {
+        "type": "postback",
+        "title": "Book Now",
+        "payload": "BOOK_ALPS_TRIP"
+      }
+    ]
+  }
+}
+```
+
+### Link
+
+```json
+{
+  "content_type": "link",
+  "custom_attributes": {
+    "title": "Explore the Mountains",
+    "subtitle": "A weekend getaway in the Alps", // optional
+    "image_url": "https://example.com/images/alps.jpg", // optional
+    "action_url": "https://blog.example.com/latest-post"
+  }
+}
+```
+
+### Feedback
+
+```json
+{
+  "content_type": "feedback",
+  "custom_attributes": {
+    "title": "How would you rate your experience?",
+    "subtitle": "A weekend getaway in the Alps", // optional
+    "image_url": "https://example.com/images/alps.jpg", // optional
+    "options": [
+      { "value": 1, "title": "Very Poor" },
+      { "value": 2, "title": "Poor" },
+      { "value": 3, "title": "Average" },
+      { "value": 4, "title": "Good" },
+      { "value": 5, "title": "Excellent" }
+    ],
+    "button": {
+      "title": "Send Feedback"
+    }
+  }
+}
+```
+
+### QuickReply
+
+```json
+{
+  "content_type": "quick_reply",
+  "custom_attributes": {
+    "title": "How would you rate your experience?",
+    "subtitle": "A weekend getaway in the Alps", // optional
+    "image_url": "https://example.com/images/alps.jpg", // optional
+    "options": [
+      { "title": "Standard (3–5 days)", "value": "SHIP_STANDARD" },
+      { "title": "Express (1–2 days)", "value": "SHIP_EXPRESS" },
+      { "title": "Overnight", "value": "SHIP_OVERNIGHT" }
+    ]
+  }
+}
+```
