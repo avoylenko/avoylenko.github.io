@@ -15,7 +15,7 @@
 - [SDK Authorization](#6-sdk-authorization)
 - [SDK API](#7-sdk-api)
 - [SDK WebSocket](#8-sdk-websocket)
-- [SDK Interactive Messages](#9-SDK-Interactive-Messages)
+- [SDK Interactive Messages](#9-sdk-interactive-messages)
 
 ---
 
@@ -245,6 +245,22 @@ access_token: kJGO53QxaEuhHaOU3h5Dc5
 }
 ```
 
+### Update interactive message attributes
+
+```http
+PATCH /api/v1/sdk/conversations/messages/477/interactive-attribute HTTP/1.1
+Host: devlight.cloud.novatalks.com.ua
+Content-Type: application/json
+access_token: kJGO53QxaEuhHaOU3h5Dc5
+
+{
+   "selected_message": {
+    "custom_attribute_value": "selected value or feedback input"
+  }
+}
+
+```
+
 ✅ **Успішна відповідь(тіла відповіді немає) (200 OK)**
 
 ## 8. SDK WebSocket
@@ -410,7 +426,7 @@ Upgrade: websocket
     "sender": {
       "id": 1,
       "name": "Support",
-      "displayName": "",
+      "display_name": "",
       "avatar_url": null
     },
     "created_at": 1745404967805
@@ -489,7 +505,7 @@ Upgrade: websocket
     "sender": {
       "id": 1,
       "name": "Support",
-      "displayName": "",
+      "display_name": "",
       "avatar_url": null
     },
     "created_at": 1745404967805,
@@ -498,7 +514,7 @@ Upgrade: websocket
       "sender": {
         "id": 244,
         "name": "sdk-1",
-        "displayName": null,
+        "display_name": null,
         "avatar_url": null
       },
       "message_type": "incoming",
@@ -550,7 +566,7 @@ Upgrade: websocket
     "sender": {
       "id": 1,
       "name": "Support",
-      "displayName": "",
+      "display_name": "",
       "avatar_url": null
     },
     "created_at": 1745404967805,
@@ -559,7 +575,7 @@ Upgrade: websocket
       "sender": {
         "id": 244,
         "name": "sdk-1",
-        "displayName": null,
+        "display_name": null,
         "avatar_url": null
       },
       "message_type": "incoming",
@@ -639,8 +655,7 @@ Upgrade: websocket
 {
   "content_type": "card",
   "custom_attributes": {
-    "title": "Explore the Mountains", // optional
-    "subtitle": "A weekend getaway in the Alps", // optional
+    "title": "Explore the Mountains",
     "image_url": "https://example.com/images/alps.jpg", // optional
     "buttons": [
       {
@@ -649,9 +664,9 @@ Upgrade: websocket
         "url": "https://example.com/trips/alps"
       },
       {
-        "type": "postback",
+        "type": "postback", // click on postback button - create message
         "title": "Book Now",
-        "payload": "BOOK_ALPS_TRIP"
+        "value": "BOOK_ALPS_TRIP"
       }
     ]
   }
@@ -662,12 +677,16 @@ Upgrade: websocket
 
 ```json
 {
-  "content_type": "link",
+  "content_type": "card",
   "custom_attributes": {
     "title": "Explore the Mountains",
-    "subtitle": "A weekend getaway in the Alps", // optional
-    "image_url": "https://example.com/images/alps.jpg", // optional
-    "action_url": "https://blog.example.com/latest-post"
+    "buttons": [
+      {
+        "type": "link",
+        "title": "View Details",
+        "url": "https://example.com/trips/alps"
+      }
+    ]
   }
 }
 ```
@@ -679,18 +698,7 @@ Upgrade: websocket
   "content_type": "feedback",
   "custom_attributes": {
     "title": "How would you rate your experience?",
-    "subtitle": "A weekend getaway in the Alps", // optional
-    "image_url": "https://example.com/images/alps.jpg", // optional
-    "options": [
-      { "value": 1, "title": "Very Poor" },
-      { "value": 2, "title": "Poor" },
-      { "value": 3, "title": "Average" },
-      { "value": 4, "title": "Good" },
-      { "value": 5, "title": "Excellent" }
-    ],
-    "button": {
-      "title": "Send Feedback"
-    }
+    "selected_value": null // or feedback input value
   }
 }
 ```
@@ -702,13 +710,13 @@ Upgrade: websocket
   "content_type": "quick_reply",
   "custom_attributes": {
     "title": "How would you rate your experience?",
-    "subtitle": "A weekend getaway in the Alps", // optional
     "image_url": "https://example.com/images/alps.jpg", // optional
-    "options": [
+    "buttons": [
       { "title": "Standard (3–5 days)", "value": "SHIP_STANDARD" },
       { "title": "Express (1–2 days)", "value": "SHIP_EXPRESS" },
       { "title": "Overnight", "value": "SHIP_OVERNIGHT" }
-    ]
+    ],
+    "selected_value": null // or value(SHIP_OVERNIGHT)
   }
 }
 ```
