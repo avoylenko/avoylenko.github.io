@@ -254,9 +254,7 @@ Content-Type: application/json
 access_token: kJGO53QxaEuhHaOU3h5Dc5
 
 {
-   "selected_message": {
-    "custom_attribute_value": "selected value or feedback input"
-  }
+   "selected_content_attribute_value": "selected value or feedback input"
 }
 
 ```
