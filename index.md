@@ -654,8 +654,8 @@ Upgrade: websocket
 ```json
 {
   "content_type": "card",
-  "custom_attributes": {
-    "title": "Explore the Mountains",
+  "content": "Explore the Mountains",
+  "content_attributes": {
     "image_url": "https://example.com/images/alps.jpg", // optional
     "buttons": [
       {
@@ -678,8 +678,8 @@ Upgrade: websocket
 ```json
 {
   "content_type": "card",
-  "custom_attributes": {
-    "title": "Explore the Mountains",
+  "content": "Explore the Mountains",
+  "content_attributes": {
     "buttons": [
       {
         "type": "link",
@@ -696,8 +696,8 @@ Upgrade: websocket
 ```json
 {
   "content_type": "feedback",
-  "custom_attributes": {
-    "title": "How would you rate your experience?",
+  "content": "How would you rate your experience?",
+  "content_attributes": {
     "selected_value": null // or feedback input value
   }
 }
@@ -708,8 +708,8 @@ Upgrade: websocket
 ```json
 {
   "content_type": "quick_reply",
-  "custom_attributes": {
-    "title": "How would you rate your experience?",
+  "content": "How would you rate your experience?",
+  "content_attributes": {
     "image_url": "https://example.com/images/alps.jpg", // optional
     "buttons": [
       { "title": "Standard (3–5 days)", "value": "SHIP_STANDARD" },
