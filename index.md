@@ -1,4 +1,4 @@
-### NOVATALKS SDK API DOCUMENTATION 
+### NOVATALKS SDK API DOCUMENTATION
 
 ---
 
@@ -257,6 +257,19 @@ access_token: kJGO53QxaEuhHaOU3h5Dc5
    "selected_content_attribute_value": "selected value or feedback input"
 }
 
+```
+
+✅ **Успішна відповідь(тіла відповіді немає) (200 OK)**
+
+### Delete message
+
+Видалення повідомлення клієнта по ID.
+
+```http
+DELETE /api/v1/sdk/conversations/messages/1 HTTP/1.1
+Host: devlight.cloud.novatalks.com.ua
+Content-Type: application/json
+access_token: kJGO53QxaEuhHaOU3h5Dc5
 ```
 
 ✅ **Успішна відповідь(тіла відповіді немає) (200 OK)**
