@@ -293,6 +293,7 @@ Upgrade: websocket
 | `conversation.status_changed` | Івент про зміну статусу розмови чату |
 | `message.created` | Івент про створення повідомлення |
 | `message.updated` | Івент про оновлення повідомлення |
+| `message.deleted` | Івент про видалення повідомлення |
 | `typing` | Івент про те, щоб користувач бачив, що агент набирає повідомлення |
 
 ### WebSocket Subscribe
@@ -640,6 +641,21 @@ Upgrade: websocket
       "name": "ContactName"
     },
     "sender_type": "Contact" // Contact || User
+  }
+}
+```
+
+### WebSocket message.deleted event
+
+```json
+{
+  "event": "message.deleted",
+  "data": {
+    "id": 1,
+    "conversation_id": 1,
+    "created_at": 1747090960816,
+    "updated_at": 1747090960817,
+    "deleted_at": 1747090960818 // null
   }
 }
 ```
