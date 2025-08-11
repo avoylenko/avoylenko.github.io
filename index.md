@@ -266,10 +266,29 @@ access_token: kJGO53QxaEuhHaOU3h5Dc5
 Видалення повідомлення клієнта по ID.
 
 ```http
-DELETE /api/v1/sdk/conversations/messages/1 HTTP/1.1
+DELETE /api/v1/sdk/conversations/messages/{message_id} HTTP/1.1
 Host: devlight.cloud.novatalks.com.ua
 Content-Type: application/json
 access_token: kJGO53QxaEuhHaOU3h5Dc5
+```
+
+✅ **Успішна відповідь(тіла відповіді немає) (200 OK)**
+
+### Add reaction to message
+
+reactions: 👍👎🔥🥰👏😁🤔🤯😱🤬😢🎉🤩🤮💩🙏👌🕊🤡🥱🥴😍🐳❤‍🔥🌚🌭💯🤣⚡🍌🏆💔🤨😐🍓🍾💋🖕😈😴😭🤓👻👨‍💻👀🎃🙈😇😨🤝✍🤗🫡🎅🎄☃💅🤪🗿🆒💘🙉🦄😘💊🙊😎👾🤷‍♂🤷🤷‍♀😡
+
+Додавання реакції до повідомлення клієнта по ID або оновлення.
+
+```http
+POST /api/v1/sdk/conversations/messages/{message_id}/reactions HTTP/1.1
+Host: devlight.cloud.novatalks.com.ua
+Content-Type: application/json
+access_token: kJGO53QxaEuhHaOU3h5Dc5
+
+{
+  "reaction": "👍" // Вкажіть emoji для додавання/оновлення, або null для видалення реакції
+}
 ```
 
 ✅ **Успішна відповідь(тіла відповіді немає) (200 OK)**
@@ -294,6 +313,7 @@ Upgrade: websocket
 | `message.created` | Івент про створення повідомлення |
 | `message.updated` | Івент про оновлення повідомлення |
 | `message.deleted` | Івент про видалення повідомлення |
+| `message.reaction_updated` | Івент про оновлення реакцій |
 | `typing` | Івент про те, щоб користувач бачив, що агент набирає повідомлення |
 
 ### WebSocket Subscribe
@@ -441,7 +461,9 @@ Upgrade: websocket
       "display_name": "",
       "avatar_url": null
     },
-    "created_at": 1745404967805
+    "created_at": 1745404967805,
+    "deleted_at": null,
+    "reactions": []
   }
 }
 ```
@@ -474,7 +496,9 @@ Upgrade: websocket
       "name": "sdk-contact-494",
       "avatar_url": null
     },
-    "created_at": 1745404967805
+    "created_at": 1745404967805,
+    "deleted_at": null,
+    "reactions": []
   }
 }
 ```
@@ -545,7 +569,9 @@ Upgrade: websocket
         }
       ],
       "created_at": 1747090960816
-    } // or null
+    }, // or null
+    "reactions": [],
+    "deleted_at": null
   }
 }
 ```
@@ -606,7 +632,21 @@ Upgrade: websocket
         }
       ],
       "created_at": 1747090960816
-    } // or null
+    }, // or null
+    "reactions": [
+      {
+        "content": "👍",
+        "created_at": 1754925620670,
+        "sender": {
+          "id": 244,
+          "name": "sdk-1",
+          "display_name": null,
+          "avatar_url": null,
+          "type": "Contact"
+        }
+      }
+    ],
+    "deleted_at": 1747090960818 // null
   }
 }
 ```
@@ -656,6 +696,32 @@ Upgrade: websocket
     "created_at": 1747090960816,
     "updated_at": 1747090960817,
     "deleted_at": 1747090960818 // null
+  }
+}
+```
+
+### WebSocket message.reaction_updated event
+
+```json
+{
+  "event": "message.reaction_updated",
+  "data": {
+    "id": 1,
+    "conversation_id": 1,
+    "account_id": 1,
+    "reactions": [
+      {
+        "content": "👍",
+        "created_at": 1754925620670,
+        "sender": {
+          "id": 244,
+          "name": "sdk-1",
+          "display_name": null,
+          "avatar_url": null,
+          "type": "Contact"
+        }
+      }
+    ]
   }
 }
 ```
