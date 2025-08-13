@@ -635,6 +635,7 @@ Upgrade: websocket
     }, // or null
     "reactions": [
       {
+        "id": 1,
         "content": "👍",
         "created_at": 1754925620670,
         "sender": {
@@ -711,6 +712,7 @@ Upgrade: websocket
     "account_id": 1,
     "reactions": [
       {
+        "id": 1,
         "content": "👍",
         "created_at": 1754925620670,
         "sender": {
