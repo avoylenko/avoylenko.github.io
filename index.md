@@ -929,6 +929,8 @@ User-Agent:"NovaTalks.Engine
 }
 ```
 
+## 11. SDK Push Notification. Delete push token
+
 Для видалення конкретного push токена з нотифікацій розмови використовуйте наступний запит:
 
 - {account_id} — ID акаунту
