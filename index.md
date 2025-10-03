@@ -16,6 +16,7 @@
 - [SDK API](#7-sdk-api)
 - [SDK WebSocket](#8-sdk-websocket)
 - [SDK Interactive Messages](#9-sdk-interactive-messages)
+- [SDK Push Notification Webhook Integration](#10-sdk-push-notification-integration)
 
 ---
 
@@ -292,6 +293,20 @@ access_token: kJGO53QxaEuhHaOU3h5Dc5
 ```
 
 ✅ **Успішна відповідь(тіла відповіді немає) (200 OK)**
+
+### Delete push token for conversation
+
+Видалення пуш токена для нотифікацій
+
+```http
+DELETE /api/v1/sdk/notifications/{push-token}
+HTTP/1.1
+Host: devlight.cloud.novatalks.com.ua
+Content-Type: application/json
+access_token: kJGO53QxaEuhHaOU3h5Dc5
+```
+
+✅ **Успішна відповідь (200 OK)**
 
 ## 8. SDK WebSocket
 
@@ -813,5 +828,101 @@ Upgrade: websocket
     ],
     "selected_value": null // or value(SHIP_OVERNIGHT)
   }
+}
+```
+
+## 10. SDK Push Notification. Webhook Integration
+
+Приклад запиту для пуш нотифікацій при **створенні повідомлення** з типом інтеграції по вебхуку:
+
+```http
+POST /api/webhook  HTTP/1.1
+Host: example.com.ua
+Content-Type: application/json
+User-Agent:"NovaTalks.Engine
+Custom-header:"custom-value"
+Authorization:"Bearer your-bearer-token"
+
+{
+    "type": "ntk.sdk.chat",
+    "event_name": "conversation_new_message",
+    "push_tokens": [
+      "some_push_token2",
+      "some_push_token"
+    ],
+    "payload": {
+      "message_id": 282,
+      "conversation_id": 70,
+      // additional_params - парамерти які можна додати в налаштуваннях каналу
+      "additional_params": {
+        "key-1": "value2",
+        "key-2": "value2"
+      },
+      "ts": 1759439744295, // час відправки нотифікацій
+      "sender": {
+        "id": 3,
+        "name": "support2@novatalks.ai",
+        "display_name": "support2@novatalks.ai",
+        "avatar_url": null,
+        "type": "User" // enum: User | AgentBot
+      },
+      "title": "New message in the conversation: support2@novatalks.ai",
+      "body": "text message",
+      "message_type": "outgoing",
+      "content_type": "text", // enum: text | card | quick_reply | feedback
+      "dialog_id": "18ecbfad-a141-47bc-a596-51ff9b8bc3a2",
+      "status": "sent", // enum: sent | delivered
+      "created_at": 1759439739207,
+      "attachments": [
+        {
+          "id": 9,
+          "message_id": 282,
+          "account_id": 1,
+          "file_type": "file", // enum: image | audio | video | file
+          "fallback_title": null,
+          "extension": null,
+          "data_url": "https://dev-dialer-bucket.novatalks.xyz/b849cf6ae6fe68721e77a.csv",
+          "thumb_url": "https://dev-dialer-bucket.novatalks.xyz/b849cf6ae6fe68721e77a.csv",
+          "file_size": 144,
+          "mime_type": "application/octet-stream"
+        },
+        {
+          "id": 10,
+          "message_id": 282,
+          "account_id": 1,
+          "file_type": "image", // enum: image | audio | video | file
+          "fallback_title": null,
+          "extension": null,
+          "data_url": "https://dev-dialer-bucket.novatalks.xyz/849cf6ae6fe68721e77a9.png",
+          "thumb_url": "https://dev-dialer-bucket.novatalks.xyz/849cf6ae6fe68721e77a9.png",
+          "file_size": 843559,
+          "mime_type": "image/png"
+        },
+      ]
+    }
+}
+```
+
+Приклад запиту для пуш нотифікацій при **зміні статусу розмови** з типом інтеграції по вебхуку:
+
+```http
+POST /api/webhook  HTTP/1.1
+Host: example.com.ua
+Content-Type: application/json
+User-Agent:"NovaTalks.Engine
+
+{
+    "type": "ntk.sdk.chat",
+    "event_name": "conversation_status_change",
+    "push_tokens": [
+      "some_push_token2",
+      "some_push_token"
+    ],
+    "payload": {
+      "conversation_id": 70,
+      "title": "Conversation status changed to open",
+      "status": "open", //  enum: open | resolved | pending | snoozed
+      "ts": 1759441374192
+    }
 }
 ```
