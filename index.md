@@ -851,6 +851,7 @@ Authorization:"Bearer your-bearer-token"
       "some_push_token"
     ],
     "payload": {
+      "account_id": 1,
       "message_id": 282,
       "conversation_id": 70,
       // additional_params - парамерти які можна додати в налаштуваннях каналу
@@ -919,10 +920,24 @@ User-Agent:"NovaTalks.Engine
       "some_push_token"
     ],
     "payload": {
+      "account_id": 1,
       "conversation_id": 70,
       "title": "Conversation status changed to open",
       "status": "open", //  enum: open | resolved | pending | snoozed
       "ts": 1759441374192
     }
 }
+```
+
+Для видалення конкретного push токена з нотифікацій розмови використовуйте наступний запит:
+
+- {account_id} — ID акаунту
+- {conversation_id} — ID розмови
+- {push_token} — Push токен, який потрібно видалити з нотифікацій
+
+```http
+DELETE /api/v1/accounts/{account_id}/integrations/contact-conversation/{conversation_id}/notifications/{push_token} HTTP/1.1
+Host: devlight.cloud.novatalks.com.ua
+Accept: */*
+api_access_token: <your_api_token>
 ```
