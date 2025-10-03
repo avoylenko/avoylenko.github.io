@@ -16,7 +16,7 @@
 - [SDK API](#7-sdk-api)
 - [SDK WebSocket](#8-sdk-websocket)
 - [SDK Interactive Messages](#9-sdk-interactive-messages)
-- [SDK Push Notification Webhook Integration](#10-sdk-push-notification-integration)
+- [SDK Push Notification Webhook Integration](#10-sdk-push-notification-webhook-integration)
 
 ---
 
