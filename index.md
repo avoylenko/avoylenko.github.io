@@ -868,7 +868,7 @@ Authorization:"Bearer your-bearer-token"
         "type": "User" // enum: User | AgentBot
       },
       "title": "New message in the conversation: support2@novatalks.ai",
-      "body": "text message",
+      "body": "text message", // 'string' | null
       "message_type": "outgoing",
       "content_type": "text", // enum: text | card | quick_reply | feedback
       "dialog_id": "18ecbfad-a141-47bc-a596-51ff9b8bc3a2",
@@ -920,6 +920,11 @@ User-Agent:"NovaTalks.Engine
       "some_push_token"
     ],
     "payload": {
+       // additional_params - парамерти які можна додати в налаштуваннях каналу
+      "additional_params": {
+        "key-1": "value2",
+        "key-2": "value2"
+      },
       "account_id": 1,
       "conversation_id": 70,
       "title": "Conversation status changed to open",
